@@ -1,0 +1,201 @@
+/*
+ * Skylera Design System — tokens
+ *
+ * Dua lapis:
+ *   1. Primitive  (--sk-teal-500, --sk-neutral-900, ...) : palet mentah, tidak berubah per tema.
+ *   2. Semantic   (--sk-bg-page, --sk-text-primary, ...) : nama per peran, nilainya berganti per tema.
+ *
+ * Komponen hanya boleh memakai token semantic. Semua pasangan teks/latar sudah diaudit
+ * WCAG 2.2 AA (teks 4.5:1, komponen UI & focus 3:1) di light dan dark — lihat index.html.
+ *
+ * Tema dipilih lewat atribut data-theme="light" | "dark" (diset oleh theme-toggle.js).
+ * Tanpa JS, halaman jatuh ke light.
+ */
+
+:root {
+  /* Teal — warna brand dari logo (700) */
+  --sk-teal-50: #EEF7F9;
+  --sk-teal-100: #D3ECF0;
+  --sk-teal-200: #A8D8E0;
+  --sk-teal-300: #6FBCCA;
+  --sk-teal-400: #3A9AAD;
+  --sk-teal-500: #1F7B8E;
+  --sk-teal-600: #17616F;
+  --sk-teal-700: #124955;
+  --sk-teal-800: #0E3841;
+  --sk-teal-900: #0A2A31;
+  --sk-teal-950: #061A1F;
+
+  /* Amber — aksen CTA. Jangan dipakai sebagai teks di atas latar terang (2:1). */
+  --sk-amber-50: #FEF6E8;
+  --sk-amber-100: #FCE7C2;
+  --sk-amber-300: #F6C46F;
+  --sk-amber-500: #F2A93B;
+  --sk-amber-600: #E0962A;
+  --sk-amber-700: #CC8420;
+  --sk-amber-800: #8F5A12;
+  --sk-amber-950: #2A2010;
+
+  /* Neutral — abu-abu bernuansa teal */
+  --sk-neutral-0: #FFFFFF;
+  --sk-neutral-50: #F6F8F9;
+  --sk-neutral-100: #ECF0F1;
+  --sk-neutral-200: #D9E1E3;
+  --sk-neutral-300: #A3B4B8;
+  --sk-neutral-400: #83979C;
+  --sk-neutral-500: #647A80;
+  --sk-neutral-600: #4E5F64;
+  --sk-neutral-700: #3A4A4E;
+  --sk-neutral-750: #2F474D;
+  --sk-neutral-800: #24383D;
+  --sk-neutral-850: #17292E;
+  --sk-neutral-900: #111F23;
+  --sk-neutral-950: #0A1417;
+
+  /* Status */
+  --sk-green-50: #E8F6EF;
+  --sk-green-400: #4CC38A;
+  --sk-green-700: #1E7550;
+  --sk-green-950: #0F2A1F;
+  --sk-red-50: #FCECEC;
+  --sk-red-400: #F07171;
+  --sk-red-700: #C23B3B;
+  --sk-red-950: #2E1414;
+
+  /* Fondasi non-warna (sementara, belum diriset seperti warna) */
+  --sk-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sk-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --sk-radius-sm: 6px;
+  --sk-radius-md: 8px;
+  --sk-radius-lg: 12px;
+  --sk-focus-width: 2px;
+}
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --sk-bg-page: var(--sk-neutral-50);
+  --sk-bg-surface: var(--sk-neutral-0);
+  --sk-bg-surface-raised: var(--sk-neutral-0);
+  --sk-bg-surface-hover: var(--sk-neutral-100);
+  --sk-bg-subtle: var(--sk-teal-50);
+  --sk-bg-selected: var(--sk-teal-50);
+  --sk-bg-brand: var(--sk-teal-700);
+  --sk-bg-disabled: var(--sk-neutral-100);
+
+  --sk-text-primary: var(--sk-neutral-900);
+  --sk-text-secondary: var(--sk-neutral-700);
+  --sk-text-muted: var(--sk-neutral-600);
+  --sk-text-on-brand: var(--sk-neutral-0);
+  --sk-text-on-brand-muted: var(--sk-teal-100);
+  --sk-text-selected: var(--sk-teal-700);
+  --sk-text-disabled: var(--sk-neutral-300);
+
+  --sk-link: var(--sk-teal-500);
+  --sk-link-hover: var(--sk-teal-600);
+
+  --sk-border: var(--sk-neutral-200);
+  --sk-border-strong: var(--sk-neutral-300);
+  --sk-border-input: var(--sk-neutral-500);
+  --sk-focus-ring: var(--sk-teal-500);
+  --sk-focus-ring-on-brand: var(--sk-teal-200);
+
+  --sk-cta: var(--sk-amber-500);
+  --sk-cta-hover: var(--sk-amber-600);
+  --sk-cta-active: var(--sk-amber-700);
+  --sk-text-on-cta: var(--sk-teal-900);
+
+  --sk-primary: var(--sk-teal-700);
+  --sk-primary-hover: var(--sk-teal-800);
+  --sk-primary-active: var(--sk-teal-900);
+  --sk-text-on-primary: var(--sk-neutral-0);
+
+  --sk-success-text: var(--sk-green-700);
+  --sk-success-bg: var(--sk-green-50);
+  --sk-success-solid: var(--sk-green-700);
+  --sk-text-on-success: var(--sk-neutral-0);
+
+  --sk-warning-text: var(--sk-amber-800);
+  --sk-warning-bg: var(--sk-amber-50);
+  --sk-warning-solid: var(--sk-amber-500);
+  --sk-text-on-warning: var(--sk-teal-900);
+
+  --sk-error-text: var(--sk-red-700);
+  --sk-error-bg: var(--sk-red-50);
+  --sk-error-solid: var(--sk-red-700);
+  --sk-text-on-error: var(--sk-neutral-0);
+
+  --sk-info-text: var(--sk-teal-600);
+  --sk-info-bg: var(--sk-teal-50);
+  --sk-info-solid: var(--sk-teal-600);
+  --sk-text-on-info: var(--sk-neutral-0);
+
+  --sk-logo: var(--sk-teal-700);
+  --sk-shadow-raised: 0 1px 2px rgb(17 31 35 / 0.06), 0 4px 12px rgb(17 31 35 / 0.08);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --sk-bg-page: var(--sk-neutral-950);
+  --sk-bg-surface: var(--sk-neutral-900);
+  --sk-bg-surface-raised: var(--sk-neutral-850);
+  --sk-bg-surface-hover: var(--sk-neutral-850);
+  --sk-bg-subtle: var(--sk-teal-900);
+  --sk-bg-selected: var(--sk-teal-900);
+  --sk-bg-brand: var(--sk-teal-700);
+  --sk-bg-disabled: var(--sk-neutral-850);
+
+  --sk-text-primary: var(--sk-neutral-100);
+  --sk-text-secondary: var(--sk-neutral-300);
+  --sk-text-muted: var(--sk-neutral-400);
+  --sk-text-on-brand: var(--sk-neutral-100);
+  --sk-text-on-brand-muted: var(--sk-teal-200);
+  --sk-text-selected: var(--sk-teal-200);
+  --sk-text-disabled: var(--sk-neutral-750);
+
+  --sk-link: var(--sk-teal-300);
+  --sk-link-hover: var(--sk-teal-200);
+
+  --sk-border: var(--sk-neutral-800);
+  --sk-border-strong: var(--sk-neutral-750);
+  --sk-border-input: var(--sk-neutral-500);
+  --sk-focus-ring: var(--sk-teal-300);
+  --sk-focus-ring-on-brand: var(--sk-teal-300);
+
+  --sk-cta: var(--sk-amber-500);
+  --sk-cta-hover: var(--sk-amber-300);
+  --sk-cta-active: var(--sk-amber-100);
+  --sk-text-on-cta: var(--sk-teal-900);
+
+  /* Material 3: di dark, primary pakai tone terang + teks gelap */
+  --sk-primary: var(--sk-teal-300);
+  --sk-primary-hover: var(--sk-teal-200);
+  --sk-primary-active: var(--sk-teal-100);
+  --sk-text-on-primary: var(--sk-teal-950);
+
+  --sk-success-text: var(--sk-green-400);
+  --sk-success-bg: var(--sk-green-950);
+  --sk-success-solid: var(--sk-green-400);
+  --sk-text-on-success: var(--sk-neutral-950);
+
+  --sk-warning-text: var(--sk-amber-500);
+  --sk-warning-bg: var(--sk-amber-950);
+  --sk-warning-solid: var(--sk-amber-500);
+  --sk-text-on-warning: var(--sk-teal-900);
+
+  --sk-error-text: var(--sk-red-400);
+  --sk-error-bg: var(--sk-red-950);
+  --sk-error-solid: var(--sk-red-400);
+  --sk-text-on-error: var(--sk-neutral-950);
+
+  --sk-info-text: var(--sk-teal-300);
+  --sk-info-bg: var(--sk-teal-900);
+  --sk-info-solid: var(--sk-teal-300);
+  --sk-text-on-info: var(--sk-teal-950);
+
+  --sk-logo: var(--sk-neutral-0);
+  /* Di dark, elevasi ditunjukkan lewat surface yang lebih terang, bukan bayangan */
+  --sk-shadow-raised: none;
+}

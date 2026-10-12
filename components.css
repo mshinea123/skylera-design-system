@@ -1,0 +1,145 @@
+/*
+ * Skylera Design System — komponen dasar.
+ * Hanya memakai token semantic dari tokens.css, jadi otomatis ikut tema.
+ */
+
+/* Button */
+.sk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.125rem;
+  border: 1px solid transparent;
+  border-radius: var(--sk-radius-md);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.sk-btn:focus-visible {
+  outline: var(--sk-focus-width) solid var(--sk-focus-ring);
+  outline-offset: 2px;
+}
+
+.sk-btn--cta { background: var(--sk-cta); color: var(--sk-text-on-cta); }
+.sk-btn--cta:hover { background: var(--sk-cta-hover); }
+.sk-btn--cta:active { background: var(--sk-cta-active); }
+
+.sk-btn--primary { background: var(--sk-primary); color: var(--sk-text-on-primary); }
+.sk-btn--primary:hover { background: var(--sk-primary-hover); }
+.sk-btn--primary:active { background: var(--sk-primary-active); }
+
+.sk-btn--secondary {
+  background: var(--sk-bg-surface);
+  color: var(--sk-text-primary);
+  border-color: var(--sk-border-input);
+}
+.sk-btn--secondary:hover { background: var(--sk-bg-surface-hover); }
+.sk-btn--secondary:active { background: var(--sk-bg-selected); }
+
+/* Tombol sekunder di atas band brand (hero) */
+.sk-btn--on-brand {
+  background: transparent;
+  color: var(--sk-text-on-brand);
+  border-color: var(--sk-text-on-brand-muted);
+}
+.sk-btn--on-brand:hover { background: rgb(255 255 255 / 0.1); }
+.sk-btn--on-brand:active { background: rgb(255 255 255 / 0.18); }
+
+/* Disabled dikecualikan dari syarat kontras WCAG */
+.sk-btn:disabled,
+.sk-btn[aria-disabled="true"] {
+  background: var(--sk-bg-disabled);
+  color: var(--sk-text-disabled);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* Link — underline wajib di dalam teks: warnanya ≈1:1 terhadap teks biasa (WCAG 1.4.1) */
+.sk-link {
+  color: var(--sk-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.sk-link:hover {
+  color: var(--sk-link-hover);
+  text-decoration-thickness: 2px;
+}
+.sk-link:focus-visible {
+  outline: var(--sk-focus-width) solid var(--sk-focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Form field */
+.sk-field { display: grid; gap: 0.375rem; }
+.sk-label { font-size: 0.875rem; font-weight: 600; color: var(--sk-text-primary); }
+.sk-help { font-size: 0.8125rem; color: var(--sk-text-muted); }
+.sk-error-msg { font-size: 0.8125rem; color: var(--sk-error-text); }
+
+.sk-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--sk-border-input);
+  border-radius: var(--sk-radius-sm);
+  background: var(--sk-bg-surface);
+  color: var(--sk-text-primary);
+  font: inherit;
+  font-size: 0.9375rem;
+}
+.sk-input::placeholder { color: var(--sk-text-muted); }
+.sk-input:focus-visible {
+  outline: var(--sk-focus-width) solid var(--sk-focus-ring);
+  outline-offset: 1px;
+}
+.sk-input[aria-invalid="true"] { border-color: var(--sk-error-text); }
+.sk-input:disabled {
+  background: var(--sk-bg-disabled);
+  color: var(--sk-text-disabled);
+  border-color: var(--sk-border);
+}
+
+/* Alert & badge */
+.sk-alert {
+  padding: 0.75rem 1rem;
+  border-radius: var(--sk-radius-md);
+  font-size: 0.9375rem;
+}
+.sk-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.sk-alert--success, .sk-badge--success { background: var(--sk-success-bg); color: var(--sk-success-text); }
+.sk-alert--warning, .sk-badge--warning { background: var(--sk-warning-bg); color: var(--sk-warning-text); }
+.sk-alert--error, .sk-badge--error { background: var(--sk-error-bg); color: var(--sk-error-text); }
+.sk-alert--info, .sk-badge--info { background: var(--sk-info-bg); color: var(--sk-info-text); }
+
+/* Card */
+.sk-card {
+  background: var(--sk-bg-surface);
+  border: 1px solid var(--sk-border);
+  border-radius: var(--sk-radius-lg);
+  padding: 1.25rem;
+}
+.sk-card--raised {
+  background: var(--sk-bg-surface-raised);
+  box-shadow: var(--sk-shadow-raised);
+}
+
+/* Band brand (hero, CTA section). Focus ring diganti agar tetap ≥3:1 di atas teal. */
+.sk-brand-band {
+  background: var(--sk-bg-brand);
+  color: var(--sk-text-on-brand);
+  --sk-focus-ring: var(--sk-focus-ring-on-brand);
+  --sk-link: var(--sk-text-on-brand);
+  --sk-link-hover: var(--sk-text-on-brand);
+}
