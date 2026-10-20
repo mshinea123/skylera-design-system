@@ -1,0 +1,11 @@
+{
+  "name": "@skylera/design-system",
+  "version": "0.2.0",
+  "private": true,
+  "files": ["tokens.css", "components.css", "theme-toggle.js"],
+  "exports": {
+    "./tokens.css": "./tokens.css",
+    "./components.css": "./components.css",
+    "./theme-toggle.js": "./theme-toggle.js"
+  }
+}
