@@ -305,8 +305,9 @@
     <section class="doc" id="pemakaian">
       <div class="wrap">
         <h2>Pemakaian</h2>
-        <p class="lead">Muat ketiga file di <code>&lt;head&gt;</code>. Script tema harus sinkron (tanpa <code>defer</code>) supaya tidak ada kedipan saat halaman dibuka.</p>
-<pre>&lt;link rel="stylesheet" href="tokens.css"&gt;
+        <p class="lead">Muat font Inter dan ketiga file di <code>&lt;head&gt;</code>. Script tema harus sinkron (tanpa <code>defer</code>) supaya tidak ada kedipan saat halaman dibuka.</p>
+<pre>&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"&gt;
+&lt;link rel="stylesheet" href="tokens.css"&gt;
 &lt;link rel="stylesheet" href="components.css"&gt;
 &lt;script src="theme-toggle.js"&gt;&lt;/script&gt;</pre>
         <h3>Toggle tema</h3>
@@ -323,13 +324,15 @@
   border: 1px solid var(--sk-border);
   color: var(--sk-text-secondary);
 }</pre>
+        <h3>Highlight kata kunci di judul</h3>
+<pre>&lt;h1&gt;Solusi digital untuk &lt;span class="sk-highlight"&gt;bisnis Anda&lt;/span&gt;&lt;/h1&gt;</pre>
         <h3>Aturan</h3>
         <ul class="rules">
           <li>Jangan pakai hex atau token primitive (<code>--sk-teal-500</code>) langsung di komponen. Kalau belum ada token yang pas, tambah token semantic baru lalu cek kontrasnya di halaman ini.</li>
           <li>Link di dalam paragraf pakai <code>.sk-link</code> (underline). Link navigasi dan tombol tidak perlu underline.</li>
           <li>Satu <code>.sk-btn--primary</code> per layar sebagai CTA utama. Aksi lain pakai secondary. Di dalam <code>.sk-brand-band</code>, primary otomatis berganti ke versi terang.</li>
           <li>Logo: pakai <code>assets/logo - no bg.svg</code> di light dan <code>assets/logo - no bg white.svg</code> di dark, atau inline SVG dengan <code>color: var(--sk-logo)</code>.</li>
-          <li>Tipografi, spacing, dan radius di <code>tokens.css</code> masih sementara dan belum diriset seperti warna.</li>
+          <li>Font memakai <code>--sk-font-sans</code> (Inter). Ukuran tipografi, spacing, dan radius di <code>tokens.css</code> masih sementara dan belum diriset seperti warna.</li>
         </ul>
       </div>
     </section>
