@@ -25,10 +25,7 @@
   outline-offset: 2px;
 }
 
-.sk-btn--cta { background: var(--sk-cta); color: var(--sk-text-on-cta); }
-.sk-btn--cta:hover { background: var(--sk-cta-hover); }
-.sk-btn--cta:active { background: var(--sk-cta-active); }
-
+/* Primary = CTA utama. Maksimal satu per layar. */
 .sk-btn--primary { background: var(--sk-primary); color: var(--sk-text-on-primary); }
 .sk-btn--primary:hover { background: var(--sk-primary-hover); }
 .sk-btn--primary:active { background: var(--sk-primary-active); }
@@ -142,4 +139,13 @@
   --sk-focus-ring: var(--sk-focus-ring-on-brand);
   --sk-link: var(--sk-text-on-brand);
   --sk-link-hover: var(--sk-text-on-brand);
+  --sk-text-accent: var(--sk-text-on-brand-muted);
+  /* Primary teal-700 akan tenggelam di band teal-700, jadi diganti versi terang */
+  --sk-primary: var(--sk-primary-on-brand);
+  --sk-primary-hover: var(--sk-primary-on-brand-hover);
+  --sk-primary-active: var(--sk-primary-on-brand-active);
+  --sk-text-on-primary: var(--sk-text-on-primary-on-brand);
 }
+
+/* Kata kunci yang di-highlight di judul, seperti di materi Instagram brand */
+.sk-highlight { color: var(--sk-text-accent); }

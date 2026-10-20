@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Skylera Design System</title>
   <meta name="description" content="Token warna, komponen dasar, dan panduan tema light/dark untuk website Skylera Corporation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="tokens.css">
   <link rel="stylesheet" href="components.css">
   <script src="theme-toggle.js"></script>
@@ -98,8 +101,6 @@
 
     .states th:first-child, .states td:first-child { width: 120px; }
     .states td { white-space: nowrap; }
-    .sk-btn--cta.is-hover { background: var(--sk-cta-hover); }
-    .sk-btn--cta.is-active { background: var(--sk-cta-active); }
     .sk-btn--primary.is-hover { background: var(--sk-primary-hover); }
     .sk-btn--primary.is-active { background: var(--sk-primary-active); }
     .sk-btn--secondary.is-hover { background: var(--sk-bg-surface-hover); }
@@ -149,9 +150,9 @@
         <a href="#pemakaian">Pemakaian</a>
       </nav>
       <div class="seg" role="group" aria-label="Tema">
-        <button type="button" data-sk-theme-set="system">Sistem</button>
-        <button type="button" data-sk-theme-set="light">Light</button>
         <button type="button" data-sk-theme-set="dark">Dark</button>
+        <button type="button" data-sk-theme-set="light">Light</button>
+        <button type="button" data-sk-theme-set="system">Sistem</button>
       </div>
     </div>
   </header>
@@ -160,10 +161,10 @@
     <div class="sk-brand-band hero">
       <div class="wrap">
         <svg viewBox="0 0 815 380" aria-hidden="true"><use href="#sk-logo"/></svg>
-        <h1>Skylera Design System</h1>
+        <h1>Skylera <span class="sk-highlight">Design System</span></h1>
         <p>Token warna, komponen dasar, dan aturan tema light/dark untuk website company profile Skylera Corporation. Semua pasangan warna diaudit terhadap WCAG 2.2 AA.</p>
         <div class="actions">
-          <a class="sk-btn sk-btn--cta" href="#pemakaian">Mulai pakai</a>
+          <a class="sk-btn sk-btn--primary" href="#pemakaian">Mulai pakai</a>
           <a class="sk-btn sk-btn--on-brand" href="#aksesibilitas">Lihat audit kontras</a>
         </div>
       </div>
@@ -177,8 +178,8 @@
           <li><b>Token semantic, bukan hex</b><span>Komponen hanya memakai token peran seperti <code>--sk-text-primary</code>. Nilainya berganti per tema, namanya tetap.</span></li>
           <li><b>Kontras terverifikasi</b><span>Teks minimal 4.5:1, border input dan focus ring minimal 3:1. Dicek otomatis di bagian Aksesibilitas.</span></li>
           <li><b>Link di paragraf selalu underline</b><span>Warna link hampir sama terang dengan teks biasa, jadi warna saja tidak cukup (WCAG 1.4.1).</span></li>
-          <li><b>Amber hanya untuk CTA</b><span>Satu CTA utama per layar, selalu dengan teks gelap. Amber tidak pernah dipakai sebagai warna teks di latar terang.</span></li>
-          <li><b>Dark bukan hitam pekat</b><span>Latar abu-abu gelap bernuansa teal. Elevasi ditunjukkan dengan surface yang lebih terang, bukan bayangan.</span></li>
+          <li><b>Satu warna aksi: teal</b><span>Tombol primary adalah CTA utama, maksimal satu per layar. Amber hanya untuk status warning, karena materi brand tidak memakai amber.</span></li>
+          <li><b>Dark-first, bukan hitam pekat</b><span>Dark adalah tema default, mengikuti visual brand di Instagram. Latarnya abu-abu gelap bernuansa teal, dan elevasi ditunjukkan dengan surface yang lebih terang.</span></li>
           <li><b>Teal brand tetap di kedua tema</b><span>Pakai <code>.sk-brand-band</code> untuk hero dan section brand supaya focus ring dan link ikut menyesuaikan.</span></li>
         </ul>
       </div>
@@ -215,18 +216,12 @@
           <table class="states">
             <thead><tr><th>Varian</th><th>Rest</th><th>Hover</th><th>Active</th><th>Focus</th><th>Disabled</th></tr></thead>
             <tbody>
-              <tr><td>CTA</td>
-                <td><button class="sk-btn sk-btn--cta" type="button">Hubungi kami</button></td>
-                <td><button class="sk-btn sk-btn--cta is-hover" type="button" tabindex="-1">Hubungi kami</button></td>
-                <td><button class="sk-btn sk-btn--cta is-active" type="button" tabindex="-1">Hubungi kami</button></td>
-                <td><button class="sk-btn sk-btn--cta is-focus" type="button" tabindex="-1">Hubungi kami</button></td>
-                <td><button class="sk-btn sk-btn--cta" type="button" disabled>Hubungi kami</button></td></tr>
-              <tr><td>Primary</td>
-                <td><button class="sk-btn sk-btn--primary" type="button">Simpan</button></td>
-                <td><button class="sk-btn sk-btn--primary is-hover" type="button" tabindex="-1">Simpan</button></td>
-                <td><button class="sk-btn sk-btn--primary is-active" type="button" tabindex="-1">Simpan</button></td>
-                <td><button class="sk-btn sk-btn--primary is-focus" type="button" tabindex="-1">Simpan</button></td>
-                <td><button class="sk-btn sk-btn--primary" type="button" disabled>Simpan</button></td></tr>
+              <tr><td>Primary (CTA)</td>
+                <td><button class="sk-btn sk-btn--primary" type="button">Hubungi kami</button></td>
+                <td><button class="sk-btn sk-btn--primary is-hover" type="button" tabindex="-1">Hubungi kami</button></td>
+                <td><button class="sk-btn sk-btn--primary is-active" type="button" tabindex="-1">Hubungi kami</button></td>
+                <td><button class="sk-btn sk-btn--primary is-focus" type="button" tabindex="-1">Hubungi kami</button></td>
+                <td><button class="sk-btn sk-btn--primary" type="button" disabled>Hubungi kami</button></td></tr>
               <tr><td>Secondary</td>
                 <td><button class="sk-btn sk-btn--secondary" type="button">Pelajari</button></td>
                 <td><button class="sk-btn sk-btn--secondary is-hover" type="button" tabindex="-1">Pelajari</button></td>
@@ -275,7 +270,7 @@
         <div class="twin">
           <div data-theme="light">
             <div class="label">Light</div>
-            <div class="sk-brand-band mini-hero"><h3>Solusi untuk bisnis Anda</h3><p>Hero memakai teal brand di kedua tema.</p><div class="actions"><button class="sk-btn sk-btn--cta" type="button">Hubungi kami</button><button class="sk-btn sk-btn--on-brand" type="button">Layanan</button></div></div>
+            <div class="sk-brand-band mini-hero"><h3>Solusi untuk bisnis Anda</h3><p>Hero memakai teal brand di kedua tema.</p><div class="actions"><button class="sk-btn sk-btn--primary" type="button">Hubungi kami</button><button class="sk-btn sk-btn--on-brand" type="button">Layanan</button></div></div>
             <div class="body">
               <div class="sk-card sk-card--raised"><b>Konsultasi bisnis</b><p class="muted" style="margin:4px 0 8px;font-size:.9rem">Card raised: bayangan di light.</p><a class="sk-link" href="#komponen">Selengkapnya</a></div>
               <div class="sk-alert sk-alert--info">Info memakai tint teal.</div>
@@ -283,7 +278,7 @@
           </div>
           <div data-theme="dark">
             <div class="label">Dark</div>
-            <div class="sk-brand-band mini-hero"><h3>Solusi untuk bisnis Anda</h3><p>Hero memakai teal brand di kedua tema.</p><div class="actions"><button class="sk-btn sk-btn--cta" type="button">Hubungi kami</button><button class="sk-btn sk-btn--on-brand" type="button">Layanan</button></div></div>
+            <div class="sk-brand-band mini-hero"><h3>Solusi untuk bisnis Anda</h3><p>Hero memakai teal brand di kedua tema.</p><div class="actions"><button class="sk-btn sk-btn--primary" type="button">Hubungi kami</button><button class="sk-btn sk-btn--on-brand" type="button">Layanan</button></div></div>
             <div class="body">
               <div class="sk-card sk-card--raised"><b>Konsultasi bisnis</b><p class="muted" style="margin:4px 0 8px;font-size:.9rem">Card raised: surface lebih terang di dark.</p><a class="sk-link" href="#komponen">Selengkapnya</a></div>
               <div class="sk-alert sk-alert--info">Info memakai tint teal.</div>
@@ -315,10 +310,10 @@
 &lt;link rel="stylesheet" href="components.css"&gt;
 &lt;script src="theme-toggle.js"&gt;&lt;/script&gt;</pre>
         <h3>Toggle tema</h3>
-<pre>&lt;!-- Pilihan tiga: ikut sistem, paksa light, paksa dark --&gt;
-&lt;button data-sk-theme-set="system"&gt;Sistem&lt;/button&gt;
-&lt;button data-sk-theme-set="light"&gt;Light&lt;/button&gt;
+<pre>&lt;!-- Default dark. Pilihan: dark, light, atau ikut setting perangkat --&gt;
 &lt;button data-sk-theme-set="dark"&gt;Dark&lt;/button&gt;
+&lt;button data-sk-theme-set="light"&gt;Light&lt;/button&gt;
+&lt;button data-sk-theme-set="system"&gt;Sistem&lt;/button&gt;
 
 &lt;!-- Atau satu tombol tukar light/dark --&gt;
 &lt;button data-sk-theme-toggle&gt;Ganti tema&lt;/button&gt;</pre>
@@ -332,7 +327,7 @@
         <ul class="rules">
           <li>Jangan pakai hex atau token primitive (<code>--sk-teal-500</code>) langsung di komponen. Kalau belum ada token yang pas, tambah token semantic baru lalu cek kontrasnya di halaman ini.</li>
           <li>Link di dalam paragraf pakai <code>.sk-link</code> (underline). Link navigasi dan tombol tidak perlu underline.</li>
-          <li>Satu <code>.sk-btn--cta</code> per layar. Aksi lain pakai primary atau secondary.</li>
+          <li>Satu <code>.sk-btn--primary</code> per layar sebagai CTA utama. Aksi lain pakai secondary. Di dalam <code>.sk-brand-band</code>, primary otomatis berganti ke versi terang.</li>
           <li>Logo: pakai <code>assets/logo - no bg.svg</code> di light dan <code>assets/logo - no bg white.svg</code> di dark, atau inline SVG dengan <code>color: var(--sk-logo)</code>.</li>
           <li>Tipografi, spacing, dan radius di <code>tokens.css</code> masih sementara dan belum diriset seperti warna.</li>
         </ul>
@@ -360,7 +355,7 @@
     (function () {
       var PRIMITIVES = {
         'Teal (brand = 700)': ['teal', [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]],
-        'Amber (CTA)': ['amber', [50, 100, 300, 500, 600, 700, 800, 950]],
+        'Amber (warning)': ['amber', [50, 500, 800, 950]],
         'Neutral': ['neutral', [0, 50, 100, 200, 300, 400, 500, 600, 700, 750, 800, 850, 900, 950]],
         'Green (success)': ['green', [50, 400, 700, 950]],
         'Red (error)': ['red', [50, 400, 700, 950]]
@@ -381,6 +376,7 @@
           ['text-primary', 'Judul, isi utama'],
           ['text-secondary', 'Paragraf pendukung'],
           ['text-muted', 'Caption, placeholder, metadata'],
+          ['text-accent', 'Kata kunci yang di-highlight di judul'],
           ['text-on-brand', 'Teks di atas bg-brand'],
           ['text-on-brand-muted', 'Teks sekunder di atas bg-brand'],
           ['text-selected', 'Teks item terpilih'],
@@ -396,14 +392,14 @@
           ['focus-ring-on-brand', 'Cincin fokus di atas bg-brand']
         ]],
         ['Aksi', [
-          ['cta', 'Tombol CTA utama'],
-          ['cta-hover', 'CTA hover'],
-          ['cta-active', 'CTA ditekan'],
-          ['text-on-cta', 'Teks di atas CTA'],
-          ['primary', 'Tombol primary'],
+          ['primary', 'Tombol primary (CTA utama)'],
           ['primary-hover', 'Primary hover'],
           ['primary-active', 'Primary ditekan'],
-          ['text-on-primary', 'Teks di atas primary']
+          ['text-on-primary', 'Teks di atas primary'],
+          ['primary-on-brand', 'Primary di atas bg-brand'],
+          ['primary-on-brand-hover', 'Primary di atas bg-brand, hover'],
+          ['primary-on-brand-active', 'Primary di atas bg-brand, ditekan'],
+          ['text-on-primary-on-brand', 'Teks primary di atas bg-brand']
         ]],
         ['Status', [
           ['success-text', 'Teks sukses'], ['success-bg', 'Latar alert sukses'], ['success-solid', 'Badge solid sukses'],
@@ -428,8 +424,9 @@
         ['text-on-brand', ['bg-brand'], 4.5],
         ['text-on-brand-muted', ['bg-brand'], 4.5],
         ['text-selected', ['bg-selected'], 4.5],
-        ['text-on-cta', ['cta', 'cta-hover', 'cta-active'], 4.5],
+        ['text-accent', ['bg-page', 'bg-surface', 'bg-surface-raised', 'bg-surface-hover'], 4.5],
         ['text-on-primary', ['primary', 'primary-hover', 'primary-active'], 4.5],
+        ['text-on-primary-on-brand', ['primary-on-brand', 'primary-on-brand-hover', 'primary-on-brand-active'], 4.5],
         ['border-input', ['bg-page', 'bg-surface', 'bg-surface-raised'], 3],
         ['focus-ring', ['bg-page', 'bg-surface', 'bg-surface-raised'], 3],
         ['focus-ring-on-brand', ['bg-brand'], 3],

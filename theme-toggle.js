@@ -4,14 +4,16 @@
  * tergambar — mencegah kedipan light → dark.
  *
  * Markup:
- *   <button data-sk-theme-set="system|light|dark">  pilih preferensi (aria-pressed diatur otomatis)
+ *   <button data-sk-theme-set="dark|light|system">  pilih preferensi (aria-pressed diatur otomatis)
+ *   Default 'dark'; 'system' mengikuti setting perangkat pengunjung.
  *   <button data-sk-theme-toggle>                    tukar light <-> dark
  * JS:
- *   skyleraTheme.set('dark'), skyleraTheme.get() -> 'system'|'light'|'dark', skyleraTheme.resolved()
+ *   skyleraTheme.set('dark'), skyleraTheme.get() -> 'dark'|'light'|'system', skyleraTheme.resolved()
  *   document.documentElement 'sk-themechange' event -> detail { pref, theme }
  */
 (function () {
   var KEY = 'sk-theme';
+  var DEFAULT = 'dark'; // dark-first, sesuai visual brand
   var root = document.documentElement;
   var media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   var pref = load();
@@ -25,12 +27,12 @@
       var v = localStorage.getItem(KEY);
       if (valid(v)) return v;
     } catch (e) {}
-    return 'system';
+    return DEFAULT;
   }
 
   function save(v) {
     try {
-      if (v === 'system') localStorage.removeItem(KEY);
+      if (v === DEFAULT) localStorage.removeItem(KEY);
       else localStorage.setItem(KEY, v);
     } catch (e) {}
   }
@@ -82,7 +84,7 @@
   // Samakan pilihan antar-tab yang terbuka
   window.addEventListener('storage', function (e) {
     if (e.key !== KEY) return;
-    pref = valid(e.newValue) ? e.newValue : 'system';
+    pref = valid(e.newValue) ? e.newValue : DEFAULT;
     apply();
   });
 
