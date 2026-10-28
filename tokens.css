@@ -1,11 +1,13 @@
 /*
  * Skylera Design System — tokens
  *
- * Dua lapis:
- *   1. Primitive  (--sk-teal-500, --sk-neutral-900, ...) : palet mentah, tidak berubah per tema.
- *   2. Semantic   (--sk-bg-page, --sk-text-primary, ...) : nama per peran, nilainya berganti per tema.
+ * Tiga lapis:
+ *   1. Primitive  (--sk-teal-500, --sk-space-4, --sk-font-size-lg, ...) : nilai mentah, tidak berubah per tema.
+ *   2. Semantic   (--sk-bg-page, --sk-text-primary, --sk-space-section, ...) : nama per peran.
+ *                 Warna berganti per tema; spacing dan tipografi sama di semua tema.
+ *   3. Component  (--sk-btn-bg, --sk-card-padding, ...) : ada di components.css, di selector komponennya.
  *
- * Komponen hanya boleh memakai token semantic. Semua pasangan teks/latar sudah diaudit
+ * Komponen hanya boleh memakai token semantic atau component. Semua pasangan teks/latar sudah diaudit
  * WCAG 2.2 AA (teks 4.5:1, komponen UI & focus 3:1) di light dan dark — lihat index.html.
  *
  * Dark-first: tema dark adalah default (mengikuti visual brand di media sosial).
@@ -59,13 +61,133 @@
   --sk-red-700: #C23B3B;
   --sk-red-950: #2E1414;
 
-  /* Fondasi non-warna. Skala tipografi & spacing masih sementara, belum diriset seperti warna. */
+  /* Tipografi. Basis 16px seperti set expressive Carbon untuk halaman web. */
   --sk-font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --sk-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --sk-font-size-xs: 0.75rem;   /* 12px */
+  --sk-font-size-sm: 0.875rem;  /* 14px */
+  --sk-font-size-base: 1rem;    /* 16px — juga minimum input, supaya Safari iOS tidak zoom saat fokus */
+  --sk-font-size-lg: 1.125rem;  /* 18px */
+  --sk-font-size-xl: 1.25rem;   /* 20px */
+  --sk-font-size-2xl: 1.5rem;   /* 24px */
+  --sk-font-size-3xl: 1.75rem;  /* 28px */
+  --sk-font-size-4xl: 2rem;     /* 32px */
+  --sk-font-size-5xl: 2.5rem;   /* 40px */
+  --sk-font-size-6xl: 3rem;     /* 48px */
+  --sk-font-size-7xl: 3.75rem;  /* 60px */
+  --sk-weight-regular: 400;
+  --sk-weight-medium: 500;
+  --sk-weight-semibold: 600;
+  --sk-weight-bold: 700;
+  --sk-leading-tight: 1.1;
+  --sk-leading-snug: 1.2;
+  --sk-leading-heading: 1.3;
+  --sk-leading-normal: 1.5;     /* WCAG 1.4.8: minimal 1.5 di paragraf */
+  --sk-leading-relaxed: 1.6;
+  /* Inter butuh tracking negatif di ukuran besar (rsms: ≈ -0.022em di ≥32px, ≈ -0.017em di 20px) */
+  --sk-tracking-tight: -0.02em;
+  --sk-tracking-snug: -0.01em;
+  --sk-tracking-normal: 0;
+
+  /* Spacing — grid 4px (Carbon memakai kelipatan 2, 4, 8) */
+  --sk-space-0-5: 0.125rem; /* 2px */
+  --sk-space-1: 0.25rem;    /* 4px */
+  --sk-space-1-5: 0.375rem; /* 6px */
+  --sk-space-2: 0.5rem;     /* 8px */
+  --sk-space-2-5: 0.625rem; /* 10px */
+  --sk-space-3: 0.75rem;    /* 12px */
+  --sk-space-4: 1rem;       /* 16px */
+  --sk-space-5: 1.25rem;    /* 20px */
+  --sk-space-6: 1.5rem;     /* 24px */
+  --sk-space-7: 1.75rem;    /* 28px */
+  --sk-space-8: 2rem;       /* 32px */
+  --sk-space-10: 2.5rem;    /* 40px */
+  --sk-space-12: 3rem;      /* 48px */
+  --sk-space-16: 4rem;      /* 64px */
+  --sk-space-20: 5rem;      /* 80px */
+  --sk-space-24: 6rem;      /* 96px */
+
   --sk-radius-sm: 6px;
   --sk-radius-md: 8px;
   --sk-radius-lg: 12px;
+  --sk-radius-xl: 16px;
+  --sk-radius-full: 999px;
   --sk-focus-width: 2px;
+
+  /* Motion — durasi dan easing productive dari Carbon */
+  --sk-duration-fast-01: 70ms;
+  --sk-duration-fast-02: 110ms;
+  --sk-duration-moderate-01: 150ms;
+  --sk-duration-moderate-02: 240ms;
+  --sk-duration-slow-01: 400ms;
+  --sk-duration-slow-02: 700ms;
+  --sk-ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --sk-ease-entrance: cubic-bezier(0, 0, 0.38, 0.9);
+  --sk-ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
+
+  --sk-z-sticky: 100;
+  --sk-z-overlay: 200;
+  --sk-z-toast: 300;
+}
+
+/*
+ * Semantic non-warna: sama di semua tema.
+ * Judul fluid = interpolasi rem + vw dari lebar 375px ke 1280px. Rasio max/min dijaga ≤ 2.5
+ * supaya teks tetap bisa diperbesar 200% saat zoom (WCAG 1.4.4).
+ */
+:root {
+  --sk-container-max: 75rem;        /* 1200px */
+  --sk-gutter: var(--sk-space-6);
+  --sk-space-section: var(--sk-space-24);
+  --sk-measure: 65ch;               /* WCAG 1.4.8: maksimal 80 karakter per baris */
+  --sk-target-min: 2.75rem;         /* 44px, WCAG 2.5.5 */
+  --sk-duration-interaction: var(--sk-duration-moderate-01);
+  --sk-ease-interaction: var(--sk-ease-standard);
+
+  --sk-type-display-size: clamp(2.25rem, 1.6285rem + 2.6519vw, 3.75rem);
+  --sk-type-display-leading: var(--sk-leading-tight);
+  --sk-type-display-weight: var(--sk-weight-bold);
+  --sk-type-display-tracking: var(--sk-tracking-tight);
+
+  --sk-type-h2-size: clamp(1.75rem, 1.4392rem + 1.326vw, 2.5rem);
+  --sk-type-h2-leading: var(--sk-leading-snug);
+  --sk-type-h2-weight: var(--sk-weight-semibold);
+  --sk-type-h2-tracking: var(--sk-tracking-tight);
+
+  --sk-type-h3-size: var(--sk-font-size-xl);
+  --sk-type-h3-leading: var(--sk-leading-heading);
+  --sk-type-h3-weight: var(--sk-weight-semibold);
+  --sk-type-h3-tracking: var(--sk-tracking-snug);
+
+  --sk-type-lead-size: clamp(1rem, 0.9482rem + 0.221vw, 1.125rem);
+  --sk-type-lead-leading: var(--sk-leading-relaxed);
+
+  --sk-type-body-size: var(--sk-font-size-base);
+  --sk-type-body-leading: var(--sk-leading-relaxed);
+
+  --sk-type-small-size: var(--sk-font-size-sm);
+  --sk-type-small-leading: var(--sk-leading-normal);
+
+  --sk-type-label-size: var(--sk-font-size-sm);
+  --sk-type-label-weight: var(--sk-weight-semibold);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --sk-gutter: var(--sk-space-4);
+    --sk-space-section: var(--sk-space-16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sk-duration-fast-01: 0ms;
+    --sk-duration-fast-02: 0ms;
+    --sk-duration-moderate-01: 0ms;
+    --sk-duration-moderate-02: 0ms;
+    --sk-duration-slow-01: 0ms;
+    --sk-duration-slow-02: 0ms;
+  }
 }
 
 :root,

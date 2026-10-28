@@ -124,6 +124,13 @@
     ul.rules li { margin-bottom: 6px; }
     footer { padding: 40px 0 56px; font-size: 0.875rem; color: var(--sk-text-muted); }
     footer ul { padding-left: 1.25rem; }
+
+    .type-table td:first-child { white-space: normal; min-width: 260px; }
+    .type-table td:first-child > * { margin: 0; }
+    .space-bar { display: block; height: 12px; border-radius: 3px; background: var(--sk-text-accent); }
+    .radius-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .radius-row div { width: 84px; text-align: center; font-size: 0.75rem; color: var(--sk-text-muted); }
+    .radius-row i { display: block; height: 64px; margin-bottom: 6px; background: var(--sk-bg-subtle); border: 1px solid var(--sk-border-strong); }
   </style>
 </head>
 <body>
@@ -145,6 +152,7 @@
         <a href="#prinsip">Prinsip</a>
         <a href="#primitive">Palet</a>
         <a href="#semantic">Token</a>
+        <a href="#fondasi">Tipografi &amp; spacing</a>
         <a href="#komponen">Komponen</a>
         <a href="#aksesibilitas">Aksesibilitas</a>
         <a href="#pemakaian">Pemakaian</a>
@@ -162,7 +170,7 @@
       <div class="wrap">
         <svg viewBox="0 0 815 380" aria-hidden="true"><use href="#sk-logo"/></svg>
         <h1>Skylera <span class="sk-highlight">Design System</span></h1>
-        <p>Token warna, komponen dasar, dan aturan tema light/dark untuk website company profile Skylera Corporation. Semua pasangan warna diaudit terhadap WCAG 2.2 AA.</p>
+        <p>Token warna, tipografi, spacing, dan motion, komponen dasar, serta aturan tema light/dark untuk website company profile Skylera Corporation. Semua pasangan warna diaudit terhadap WCAG 2.2 AA.</p>
         <div class="actions">
           <a class="sk-btn sk-btn--primary" href="#pemakaian">Mulai pakai</a>
           <a class="sk-btn sk-btn--on-brand" href="#aksesibilitas">Lihat audit kontras</a>
@@ -181,6 +189,8 @@
           <li><b>Satu warna aksi: teal</b><span>Tombol primary adalah CTA utama, maksimal satu per layar. Amber hanya untuk status warning, karena materi brand tidak memakai amber.</span></li>
           <li><b>Dark-first, bukan hitam pekat</b><span>Dark adalah tema default, mengikuti visual brand di Instagram. Latarnya abu-abu gelap bernuansa teal, dan elevasi ditunjukkan dengan surface yang lebih terang.</span></li>
           <li><b>Teal brand tetap di kedua tema</b><span>Pakai <code>.sk-brand-band</code> untuk hero dan section brand supaya focus ring dan link ikut menyesuaikan.</span></li>
+          <li><b>Tiga lapis token</b><span>Primitive (nilai mentah) → semantic (peran) → component (<code>--sk-btn-*</code>, <code>--sk-card-*</code>). Ubah satu komponen lewat token component-nya, bukan dengan menimpa properti.</span></li>
+          <li><b>Skala 4px, judul aman di-zoom</b><span>Spacing kelipatan 4px. Judul fluid memakai <code>rem + vw</code> dengan rasio max/min ≤ 2.5, jadi tetap bisa diperbesar 200% (WCAG 1.4.4).</span></li>
         </ul>
       </div>
     </section>
@@ -206,6 +216,62 @@
       </div>
     </section>
 
+    <section class="doc" id="fondasi">
+      <div class="wrap">
+        <h2>Tipografi, spacing, dan motion</h2>
+        <p class="lead">Sama di semua tema. Ukuran dan nilai di bawah dibaca langsung dari elemen contoh, jadi ubah lebar jendela untuk melihat judul fluid menyesuaikan.</p>
+
+        <h3>Gaya teks</h3>
+        <div class="table-scroll">
+          <table class="type-table">
+            <thead><tr><th>Contoh</th><th>Kelas &amp; token</th><th>Ukuran sekarang</th></tr></thead>
+            <tbody id="type-rows"></tbody>
+          </table>
+        </div>
+
+        <h3>Spacing</h3>
+        <p class="muted">Grid 4px. Untuk jarak antar-section dan tepi halaman, pakai token semantic: <code>--sk-space-section</code> (96px, 64px di HP), <code>--sk-gutter</code> (24px, 16px di HP), <code>--sk-container-max</code> (1200px), <code>--sk-measure</code> (65ch, panjang baris paragraf), dan <code>--sk-target-min</code> (44px, ukuran minimal tombol dan field).</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Token</th><th>Nilai</th><th></th></tr></thead>
+            <tbody id="space-rows"></tbody>
+          </table>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <h3>Radius</h3>
+            <div class="radius-row" id="radius-row"></div>
+          </div>
+          <div>
+            <h3>Motion</h3>
+            <p class="muted">Durasi dan easing dari Carbon. Saat <code>prefers-reduced-motion: reduce</code>, semua durasi menjadi 0ms.</p>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Token</th><th>Nilai</th><th>Dipakai untuk</th></tr></thead>
+                <tbody id="motion-rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <h3>Component tokens</h3>
+        <p class="muted">Didefinisikan di selector komponennya (bukan <code>:root</code>), supaya override di <code>.sk-brand-band</code> tetap sampai ke tombol. Contoh mengecilkan padding card: <code>.testimonial .sk-card { --sk-card-padding: var(--sk-space-4); }</code></p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Komponen</th><th>Token</th></tr></thead>
+            <tbody>
+              <tr><td><code>.sk-btn</code></td><td class="mono">--sk-btn-bg, -bg-hover, -bg-active, -fg, -border, -padding-y, -padding-x, -gap, -min-height, -radius, -font-size, -font-weight</td></tr>
+              <tr><td><code>.sk-input</code></td><td class="mono">--sk-input-bg, -fg, -border, -focus-ring, -padding-y, -padding-x, -min-height, -radius, -font-size</td></tr>
+              <tr><td><code>.sk-card</code></td><td class="mono">--sk-card-bg, -border, -radius, -padding, -shadow</td></tr>
+              <tr><td><code>.sk-alert</code></td><td class="mono">--sk-alert-padding-y, -padding-x, -radius, -font-size</td></tr>
+              <tr><td><code>.sk-badge</code></td><td class="mono">--sk-badge-padding-y, -padding-x, -radius, -font-size</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <section class="doc" id="komponen">
       <div class="wrap">
         <h2>Komponen</h2>
@@ -214,20 +280,22 @@
         <h3>Tombol dan state</h3>
         <div class="table-scroll">
           <table class="states">
-            <thead><tr><th>Varian</th><th>Rest</th><th>Hover</th><th>Active</th><th>Focus</th><th>Disabled</th></tr></thead>
+            <thead><tr><th>Varian</th><th>Rest</th><th>Hover</th><th>Active</th><th>Focus</th><th>Disabled</th><th>Loading</th></tr></thead>
             <tbody>
               <tr><td>Primary (CTA)</td>
                 <td><button class="sk-btn sk-btn--primary" type="button">Hubungi kami</button></td>
                 <td><button class="sk-btn sk-btn--primary is-hover" type="button" tabindex="-1">Hubungi kami</button></td>
                 <td><button class="sk-btn sk-btn--primary is-active" type="button" tabindex="-1">Hubungi kami</button></td>
                 <td><button class="sk-btn sk-btn--primary is-focus" type="button" tabindex="-1">Hubungi kami</button></td>
-                <td><button class="sk-btn sk-btn--primary" type="button" disabled>Hubungi kami</button></td></tr>
+                <td><button class="sk-btn sk-btn--primary" type="button" disabled>Hubungi kami</button></td>
+                <td><button class="sk-btn sk-btn--primary" type="button" aria-busy="true" tabindex="-1">Mengirim…</button></td></tr>
               <tr><td>Secondary</td>
                 <td><button class="sk-btn sk-btn--secondary" type="button">Pelajari</button></td>
                 <td><button class="sk-btn sk-btn--secondary is-hover" type="button" tabindex="-1">Pelajari</button></td>
                 <td><button class="sk-btn sk-btn--secondary is-active" type="button" tabindex="-1">Pelajari</button></td>
                 <td><button class="sk-btn sk-btn--secondary is-focus" type="button" tabindex="-1">Pelajari</button></td>
-                <td><button class="sk-btn sk-btn--secondary" type="button" disabled>Pelajari</button></td></tr>
+                <td><button class="sk-btn sk-btn--secondary" type="button" disabled>Pelajari</button></td>
+                <td><button class="sk-btn sk-btn--secondary" type="button" aria-busy="true" tabindex="-1">Memuat…</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -332,7 +400,9 @@
           <li>Link di dalam paragraf pakai <code>.sk-link</code> (underline). Link navigasi dan tombol tidak perlu underline.</li>
           <li>Satu <code>.sk-btn--primary</code> per layar sebagai CTA utama. Aksi lain pakai secondary. Di dalam <code>.sk-brand-band</code>, primary otomatis berganti ke versi terang.</li>
           <li>Logo: pakai <code>assets/logo - no bg.svg</code> di light dan <code>assets/logo - no bg white.svg</code> di dark, atau inline SVG dengan <code>color: var(--sk-logo)</code>.</li>
-          <li>Font memakai <code>--sk-font-sans</code> (Inter). Ukuran tipografi, spacing, dan radius di <code>tokens.css</code> masih sementara dan belum diriset seperti warna.</li>
+          <li>Font memakai <code>--sk-font-sans</code> (Inter). Judul pakai <code>.sk-display</code>, <code>.sk-h2</code>, dan <code>.sk-h3</code>; jangan menulis ukuran font, spacing, atau durasi sendiri. Pakai token di <code>tokens.css</code>.</li>
+          <li>Jangan memberi tinggi tetap pada kotak berisi teks. Teks harus tetap muat saat pengguna menambah spasi baris dan huruf (WCAG 1.4.12).</li>
+          <li>Tombol yang sedang memproses: set <code>aria-busy="true"</code> dan <code>disabled</code>, lalu ganti labelnya (misalnya "Mengirim…").</li>
         </ul>
       </div>
     </section>
@@ -347,6 +417,10 @@
         <li><a class="sk-link" href="https://carbondesignsystem.com/elements/color/overview/">IBM Carbon — Color</a></li>
         <li><a class="sk-link" href="https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale">Radix Colors — Understanding the scale</a></li>
         <li><a class="sk-link" href="https://github.com/material-components/material-components-android/blob/master/docs/theming/Dark.md">Material Components — Dark theme</a></li>
+        <li><a class="sk-link" href="https://carbondesignsystem.com/elements/spacing/overview/">IBM Carbon — Spacing</a>, <a class="sk-link" href="https://carbondesignsystem.com/elements/typography/type-sets/">Type sets</a>, <a class="sk-link" href="https://carbondesignsystem.com/elements/motion/overview/">Motion</a></li>
+        <li><a class="sk-link" href="https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html">WCAG 2.2 — Visual Presentation (1.4.8)</a>, <a class="sk-link" href="https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html">Text Spacing (1.4.12)</a></li>
+        <li><a class="sk-link" href="https://www.smashingmagazine.com/2023/11/addressing-accessibility-concerns-fluid-type/">Smashing — Addressing Accessibility Concerns With Fluid Type</a></li>
+        <li><a class="sk-link" href="https://d.rsms.me/inter-website/v3/dynmetrics/">Inter — Dynamic metrics</a></li>
       </ul>
     </div>
   </footer>
@@ -521,6 +595,64 @@
             el('td', { 'class': 'muted', text: t[1] })
           ]));
         });
+      });
+
+      // Gaya teks: ukuran dibaca dari elemen contoh, diperbarui saat lebar jendela berubah
+      var typeRows = document.getElementById('type-rows');
+      var samples = [];
+      [['sk-display', 'type-display', 'Solusi digital untuk bisnis'],
+       ['sk-h2', 'type-h2', 'Layanan kami'],
+       ['sk-h3', 'type-h3', 'Pengembangan aplikasi'],
+       ['sk-lead', 'type-lead', 'Paragraf pembuka di bawah judul halaman.'],
+       ['', 'type-body', 'Isi paragraf biasa untuk menjelaskan layanan dan produk.'],
+       ['sk-small', 'type-small', 'Caption, metadata, dan teks pendukung.']
+      ].forEach(function (t) {
+        var sample = el('p', t[0] ? { 'class': t[0], text: t[2] }
+          : { style: 'font-size:var(--sk-type-body-size);line-height:var(--sk-type-body-leading)', text: t[2] });
+        var size = el('td', { 'class': 'mono' });
+        samples.push([sample, size]);
+        typeRows.appendChild(el('tr', {}, [
+          el('td', {}, [sample]),
+          el('td', {}, [el('code', { text: t[0] ? '.' + t[0] : '(body)' }), el('br'), el('small', { 'class': 'mono muted', text: '--sk-' + t[1] + '-*' })]),
+          size
+        ]));
+      });
+      function updateSizes() {
+        samples.forEach(function (s) {
+          var cs = getComputedStyle(s[0]);
+          s[1].textContent = Math.round(parseFloat(cs.fontSize)) + 'px / ' + (parseFloat(cs.lineHeight) / parseFloat(cs.fontSize)).toFixed(2);
+        });
+      }
+      updateSizes();
+      window.addEventListener('resize', updateSizes);
+
+      var spaceRows = document.getElementById('space-rows');
+      ['0-5', '1', '1-5', '2', '2-5', '3', '4', '5', '6', '7', '8', '10', '12', '16', '20', '24'].forEach(function (s) {
+        var v = read(rootStyle, '--sk-space-' + s).toLowerCase();
+        spaceRows.appendChild(el('tr', {}, [
+          el('td', {}, [el('code', { text: '--sk-space-' + s })]),
+          el('td', { 'class': 'mono', text: v + ' · ' + parseFloat(v) * 16 + 'px' }),
+          el('td', { style: 'width:60%' }, [el('span', { 'class': 'space-bar', style: 'width:' + v })])
+        ]));
+      });
+
+      var radiusRow = document.getElementById('radius-row');
+      ['sm', 'md', 'lg', 'xl', 'full'].forEach(function (r) {
+        var v = read(rootStyle, '--sk-radius-' + r).toLowerCase();
+        radiusRow.appendChild(el('div', {}, [el('i', { style: 'border-radius:' + v }), el('span', { text: r + ' · ' + v })]));
+      });
+
+      var motionRows = document.getElementById('motion-rows');
+      [['duration-fast-01', 'Toggle, tombol'], ['duration-fast-02', 'Fade kecil'],
+       ['duration-moderate-01', 'Hover dan state (default interaksi)'], ['duration-moderate-02', 'Expand, toast'],
+       ['duration-slow-01', 'Expand besar, notifikasi penting'], ['duration-slow-02', 'Peredupan latar'],
+       ['ease-standard', 'Gerak umum'], ['ease-entrance', 'Elemen masuk'], ['ease-exit', 'Elemen keluar']
+      ].forEach(function (m) {
+        motionRows.appendChild(el('tr', {}, [
+          el('td', {}, [el('code', { text: '--sk-' + m[0] })]),
+          el('td', { 'class': 'mono', text: read(rootStyle, '--sk-' + m[0]).toLowerCase() }),
+          el('td', { 'class': 'muted', text: m[1] })
+        ]));
       });
 
       // Contrast audit (rumus WCAG 2.x)

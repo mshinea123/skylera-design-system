@@ -1,59 +1,142 @@
 /*
  * Skylera Design System — komponen dasar.
- * Hanya memakai token semantic dari tokens.css, jadi otomatis ikut tema.
+ *
+ * Lapis ketiga (component tokens) didefinisikan di selector komponennya, bukan di :root.
+ * Kalau di :root, var(--sk-primary) sudah dihitung di root, sehingga override di
+ * .sk-brand-band tidak sampai ke tombol. Untuk mengubah satu komponen, override
+ * --sk-btn-*, --sk-card-*, dan seterusnya di selector sendiri.
  */
+
+/* Tipografi */
+.sk-display {
+  font-size: var(--sk-type-display-size);
+  line-height: var(--sk-type-display-leading);
+  font-weight: var(--sk-type-display-weight);
+  letter-spacing: var(--sk-type-display-tracking);
+}
+.sk-h2 {
+  font-size: var(--sk-type-h2-size);
+  line-height: var(--sk-type-h2-leading);
+  font-weight: var(--sk-type-h2-weight);
+  letter-spacing: var(--sk-type-h2-tracking);
+}
+.sk-h3 {
+  font-size: var(--sk-type-h3-size);
+  line-height: var(--sk-type-h3-leading);
+  font-weight: var(--sk-type-h3-weight);
+  letter-spacing: var(--sk-type-h3-tracking);
+}
+.sk-lead {
+  font-size: var(--sk-type-lead-size);
+  line-height: var(--sk-type-lead-leading);
+  color: var(--sk-text-secondary);
+}
+.sk-small {
+  font-size: var(--sk-type-small-size);
+  line-height: var(--sk-type-small-leading);
+  color: var(--sk-text-muted);
+}
+.sk-measure { max-width: var(--sk-measure); }
+
+/* Kata kunci yang di-highlight di judul, seperti di materi Instagram brand */
+.sk-highlight { color: var(--sk-text-accent); }
 
 /* Button */
 .sk-btn {
+  --sk-btn-bg: transparent;
+  --sk-btn-bg-hover: var(--sk-btn-bg);
+  --sk-btn-bg-active: var(--sk-btn-bg-hover);
+  --sk-btn-fg: inherit;
+  --sk-btn-border: transparent;
+  --sk-btn-padding-y: var(--sk-space-2);
+  --sk-btn-padding-x: var(--sk-space-5);
+  --sk-btn-gap: var(--sk-space-2);
+  --sk-btn-min-height: var(--sk-target-min);
+  --sk-btn-radius: var(--sk-radius-md);
+  --sk-btn-font-size: var(--sk-font-size-base);
+  --sk-btn-font-weight: var(--sk-weight-semibold);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.125rem;
-  border: 1px solid transparent;
-  border-radius: var(--sk-radius-md);
+  gap: var(--sk-btn-gap);
+  min-height: var(--sk-btn-min-height);
+  padding: var(--sk-btn-padding-y) var(--sk-btn-padding-x);
+  border: 1px solid var(--sk-btn-border);
+  border-radius: var(--sk-btn-radius);
+  background: var(--sk-btn-bg);
+  color: var(--sk-btn-fg);
   font: inherit;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: var(--sk-btn-font-size);
+  font-weight: var(--sk-btn-font-weight);
   line-height: 1.25;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--sk-duration-interaction);
+  transition-timing-function: var(--sk-ease-interaction);
 }
+.sk-btn:hover { background: var(--sk-btn-bg-hover); }
+.sk-btn:active { background: var(--sk-btn-bg-active); }
 .sk-btn:focus-visible {
   outline: var(--sk-focus-width) solid var(--sk-focus-ring);
   outline-offset: 2px;
 }
 
 /* Primary = CTA utama. Maksimal satu per layar. */
-.sk-btn--primary { background: var(--sk-primary); color: var(--sk-text-on-primary); }
-.sk-btn--primary:hover { background: var(--sk-primary-hover); }
-.sk-btn--primary:active { background: var(--sk-primary-active); }
+.sk-btn--primary {
+  --sk-btn-bg: var(--sk-primary);
+  --sk-btn-bg-hover: var(--sk-primary-hover);
+  --sk-btn-bg-active: var(--sk-primary-active);
+  --sk-btn-fg: var(--sk-text-on-primary);
+}
 
 .sk-btn--secondary {
-  background: var(--sk-bg-surface);
-  color: var(--sk-text-primary);
-  border-color: var(--sk-border-input);
+  --sk-btn-bg: var(--sk-bg-surface);
+  --sk-btn-bg-hover: var(--sk-bg-surface-hover);
+  --sk-btn-bg-active: var(--sk-bg-selected);
+  --sk-btn-fg: var(--sk-text-primary);
+  --sk-btn-border: var(--sk-border-input);
 }
-.sk-btn--secondary:hover { background: var(--sk-bg-surface-hover); }
-.sk-btn--secondary:active { background: var(--sk-bg-selected); }
 
 /* Tombol sekunder di atas band brand (hero) */
 .sk-btn--on-brand {
-  background: transparent;
-  color: var(--sk-text-on-brand);
-  border-color: var(--sk-text-on-brand-muted);
+  --sk-btn-bg: transparent;
+  --sk-btn-bg-hover: rgb(255 255 255 / 0.1);
+  --sk-btn-bg-active: rgb(255 255 255 / 0.18);
+  --sk-btn-fg: var(--sk-text-on-brand);
+  --sk-btn-border: var(--sk-text-on-brand-muted);
 }
-.sk-btn--on-brand:hover { background: rgb(255 255 255 / 0.1); }
-.sk-btn--on-brand:active { background: rgb(255 255 255 / 0.18); }
 
 /* Disabled dikecualikan dari syarat kontras WCAG */
 .sk-btn:disabled,
 .sk-btn[aria-disabled="true"] {
-  background: var(--sk-bg-disabled);
-  color: var(--sk-text-disabled);
-  border-color: transparent;
+  --sk-btn-bg: var(--sk-bg-disabled);
+  --sk-btn-bg-hover: var(--sk-bg-disabled);
+  --sk-btn-bg-active: var(--sk-bg-disabled);
+  --sk-btn-fg: var(--sk-text-disabled);
+  --sk-btn-border: transparent;
   cursor: not-allowed;
+}
+
+/* Loading: set aria-busy="true" (dan disabled) selama proses, ganti label misalnya "Mengirim…" */
+.sk-btn[aria-busy="true"] {
+  cursor: progress;
+  pointer-events: none;
+}
+.sk-btn[aria-busy="true"]::after {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: sk-spin 0.7s linear infinite;
+}
+@keyframes sk-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  /* Cincin terbuka tetap menandakan proses, tanpa berputar */
+  .sk-btn[aria-busy="true"]::after { animation: none; }
 }
 
 /* Link — underline wajib di dalam teks: warnanya ≈1:1 terhadap teks biasa (WCAG 1.4.1) */
@@ -74,46 +157,76 @@
 }
 
 /* Form field */
-.sk-field { display: grid; gap: 0.375rem; }
-.sk-label { font-size: 0.875rem; font-weight: 600; color: var(--sk-text-primary); }
-.sk-help { font-size: 0.8125rem; color: var(--sk-text-muted); }
-.sk-error-msg { font-size: 0.8125rem; color: var(--sk-error-text); }
+.sk-field { display: grid; gap: var(--sk-space-1-5); }
+.sk-label {
+  font-size: var(--sk-type-label-size);
+  font-weight: var(--sk-type-label-weight);
+  color: var(--sk-text-primary);
+}
+.sk-help { font-size: var(--sk-type-small-size); color: var(--sk-text-muted); }
+.sk-error-msg { font-size: var(--sk-type-small-size); color: var(--sk-error-text); }
 
 .sk-input {
+  --sk-input-bg: var(--sk-bg-surface);
+  --sk-input-fg: var(--sk-text-primary);
+  --sk-input-border: var(--sk-border-input);
+  --sk-input-focus-ring: var(--sk-focus-ring);
+  --sk-input-padding-y: var(--sk-space-2);
+  --sk-input-padding-x: var(--sk-space-3);
+  --sk-input-min-height: var(--sk-target-min);
+  --sk-input-radius: var(--sk-radius-sm);
+  --sk-input-font-size: var(--sk-font-size-base);
+
   width: 100%;
   box-sizing: border-box;
-  padding: 0.625rem 0.75rem;
-  border: 1px solid var(--sk-border-input);
-  border-radius: var(--sk-radius-sm);
-  background: var(--sk-bg-surface);
-  color: var(--sk-text-primary);
+  min-height: var(--sk-input-min-height);
+  padding: var(--sk-input-padding-y) var(--sk-input-padding-x);
+  border: 1px solid var(--sk-input-border);
+  border-radius: var(--sk-input-radius);
+  background: var(--sk-input-bg);
+  color: var(--sk-input-fg);
   font: inherit;
-  font-size: 0.9375rem;
+  font-size: var(--sk-input-font-size);
+  line-height: var(--sk-leading-normal);
 }
 .sk-input::placeholder { color: var(--sk-text-muted); }
 .sk-input:focus-visible {
-  outline: var(--sk-focus-width) solid var(--sk-focus-ring);
+  outline: var(--sk-focus-width) solid var(--sk-input-focus-ring);
   outline-offset: 1px;
 }
-.sk-input[aria-invalid="true"] { border-color: var(--sk-error-text); }
+/* Field error: border dan focus ring merah (error-text ≥3:1 di surface, diaudit di index.html) */
+.sk-input[aria-invalid="true"] {
+  --sk-input-border: var(--sk-error-text);
+  --sk-input-focus-ring: var(--sk-error-text);
+}
 .sk-input:disabled {
-  background: var(--sk-bg-disabled);
-  color: var(--sk-text-disabled);
-  border-color: var(--sk-border);
+  --sk-input-bg: var(--sk-bg-disabled);
+  --sk-input-fg: var(--sk-text-disabled);
+  --sk-input-border: var(--sk-border);
 }
 
 /* Alert & badge */
 .sk-alert {
-  padding: 0.75rem 1rem;
-  border-radius: var(--sk-radius-md);
-  font-size: 0.9375rem;
+  --sk-alert-padding-y: var(--sk-space-3);
+  --sk-alert-padding-x: var(--sk-space-4);
+  --sk-alert-radius: var(--sk-radius-md);
+  --sk-alert-font-size: var(--sk-font-size-base);
+
+  padding: var(--sk-alert-padding-y) var(--sk-alert-padding-x);
+  border-radius: var(--sk-alert-radius);
+  font-size: var(--sk-alert-font-size);
 }
 .sk-badge {
+  --sk-badge-padding-y: var(--sk-space-0-5);
+  --sk-badge-padding-x: var(--sk-space-2);
+  --sk-badge-radius: var(--sk-radius-full);
+  --sk-badge-font-size: var(--sk-font-size-xs);
+
   display: inline-block;
-  padding: 0.125rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: var(--sk-badge-padding-y) var(--sk-badge-padding-x);
+  border-radius: var(--sk-badge-radius);
+  font-size: var(--sk-badge-font-size);
+  font-weight: var(--sk-weight-semibold);
 }
 .sk-alert--success, .sk-badge--success { background: var(--sk-success-bg); color: var(--sk-success-text); }
 .sk-alert--warning, .sk-badge--warning { background: var(--sk-warning-bg); color: var(--sk-warning-text); }
@@ -122,14 +235,21 @@
 
 /* Card */
 .sk-card {
-  background: var(--sk-bg-surface);
-  border: 1px solid var(--sk-border);
-  border-radius: var(--sk-radius-lg);
-  padding: 1.25rem;
+  --sk-card-bg: var(--sk-bg-surface);
+  --sk-card-border: var(--sk-border);
+  --sk-card-radius: var(--sk-radius-lg);
+  --sk-card-padding: var(--sk-space-5);
+  --sk-card-shadow: none;
+
+  background: var(--sk-card-bg);
+  border: 1px solid var(--sk-card-border);
+  border-radius: var(--sk-card-radius);
+  padding: var(--sk-card-padding);
+  box-shadow: var(--sk-card-shadow);
 }
 .sk-card--raised {
-  background: var(--sk-bg-surface-raised);
-  box-shadow: var(--sk-shadow-raised);
+  --sk-card-bg: var(--sk-bg-surface-raised);
+  --sk-card-shadow: var(--sk-shadow-raised);
 }
 
 /* Band brand (hero, CTA section). Focus ring diganti agar tetap ≥3:1 di atas teal. */
@@ -146,6 +266,3 @@
   --sk-primary-active: var(--sk-primary-on-brand-active);
   --sk-text-on-primary: var(--sk-text-on-primary-on-brand);
 }
-
-/* Kata kunci yang di-highlight di judul, seperti di materi Instagram brand */
-.sk-highlight { color: var(--sk-text-accent); }
